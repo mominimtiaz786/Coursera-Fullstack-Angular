@@ -10,7 +10,7 @@
   <div fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
       <div *ngFor="let dish of dishes">
-        <a href="#">
+        <a href="javascript:void(0);">
           <mat-grid-tile (click)="onSelect(dish)">
             <img height="200px" src={{dish.image}} alt={{dish.name}}>
             <mat-grid-tile-footer>
