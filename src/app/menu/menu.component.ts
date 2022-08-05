@@ -26,3 +26,4 @@ export class MenuComponent implements OnInit {
     this.selectedDish = dish
   }
 }
+// this.router.navigate(['/dishdetail',dish.id])
