@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
@@ -30,7 +30,8 @@ export class DishdetailComponent implements OnInit {
   constructor(private location: Location,
     private dishService: DishService,
     private route: ActivatedRoute,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    @Inject('BaseUrl') private BaseUrl) {
     this.createForm()
   }
 
