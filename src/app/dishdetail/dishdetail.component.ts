@@ -19,6 +19,7 @@ export class DishdetailComponent implements OnInit {
 
   @Input() dish: Dish;
   dishIds: string[];
+  dishErrMess : string;
   prev: string;
   next: string;
 
@@ -103,7 +104,8 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
     this.dishService.getDishIds()
-      .subscribe(dishIds => this.dishIds = dishIds);
+      .subscribe(dishIds => this.dishIds = dishIds,
+        dishErrMess => this.dishErrMess = dishErrMess);
 
     this.route.params.pipe(
       switchMap(
