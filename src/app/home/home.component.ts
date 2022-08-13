@@ -15,11 +15,11 @@ import { flyInOut, expand } from '../animations/app.animation';
   host: {
     '[@flyInOut]': 'true',
     'style': 'display: block;'
-    },
-    animations: [
-      flyInOut(),
-      expand()
-    ]
+  },
+  animations: [
+    flyInOut(),
+    expand()
+  ]
 })
 export class HomeComponent implements OnInit {
 
@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
   dish: Dish;
   leader: Leader;
   dishErrMess: string;
+  promoErrMsg: string;
+  leaderErrMsg: string;
 
   constructor(private promotionService: PromotionService,
     private dishService: DishService,
@@ -35,14 +37,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.promotionService.getFeaturedPromotion()
-      .subscribe(promotion => this.promotion = promotion);
+      .subscribe(
+        promotion => this.promotion = promotion,
+        promoErrMsg=> this.promoErrMsg=promoErrMsg
+      );
 
     this.dishService.getFeaturedDish()
-    .subscribe(dish=>this.dish=dish,
-      dishErrMess=>this.dishErrMess=dishErrMess);
-    
+      .subscribe(
+        dish => this.dish = dish,
+        dishErrMess => this.dishErrMess = dishErrMess
+      );
+
     this.leaderService.getFeaturedLeader()
-    .subscribe(leader=>this.leader=leader);
+      .subscribe(
+        leader => this.leader = leader,
+        leaderErrMsg => this.leaderErrMsg = leaderErrMsg
+      );
   }
 
 }

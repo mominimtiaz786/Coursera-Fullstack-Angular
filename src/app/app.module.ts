@@ -40,6 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { HighlightDirective } from './directives/highlight.directive';
+import { FeedbackService } from './services/feedback.service';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { HighlightDirective } from './directives/highlight.directive';
   providers: [DishService,
     PromotionService,
     LeaderService,
+    FeedbackService,
     {provide:'BaseUrl', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

@@ -3,10 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Feedback, ContactType } from '../shared/feedback';
 
+import { FeedbackService } from '../services/feedback.service';
+
+import {expand } from '../animations/app.animation';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  animations: [
+    expand()
+  ]
 })
 export class ContactComponent implements OnInit {
 
@@ -14,8 +21,10 @@ export class ContactComponent implements OnInit {
   feedback: Feedback;
   feedbackForm: FormGroup;
   contactType = ContactType;
+  feedbackErrMsg: string;
+  serverPosted = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private feedbackService:FeedbackService) {
     this.createForm()
   }
 
@@ -89,8 +98,22 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    let feedback = this.feedbackForm.value;
+
+    this.serverPosted=true;
+    this.feedbackService.submitFeedback(feedback)
+    .subscribe(
+
+      feedback=> {
+        this.feedback=feedback;
+        this.serverPosted=false;
+        setTimeout(() => {
+          this.feedback=undefined;
+        }, 5000);
+      },
+      feedbackErrMsg=> this.feedbackErrMsg = feedbackErrMsg
+    )
+    
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
